@@ -35,12 +35,13 @@ class Character:
             return False
 
     def print_status(self):
-        print("This character has {} health and {} power.".format(self.health, self.power))
+        print("{} has {} health and {} power.".format(self.name, self.health, self.power))
 
 class Hero(Character):
 
-    def print_status(self):
-        print("You have {} health and {} power.".format(self.health, self.power))
+    def __init__(self, name, health, power, gold, armor, evade, supplies=[]):
+        self.supplies = supplies
+        super(Hero, self).__init__(name, health, power, gold, armor, evade)
     
     def attack(self, other):
         if other.dodge():
@@ -64,8 +65,6 @@ class Hero(Character):
                 self.gold += other.gold 
 
 class Baddie(Character):
-    def print_status(self):
-        print("{} has {} health and {} power.".format(self.name, self.health, self.power))
 
     def attack(self, other):
         if other.dodge():
