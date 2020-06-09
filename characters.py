@@ -26,6 +26,11 @@ class Character:
         print("This character has {} health and {} power.".format(self.health, self.power))
 
 class Hero(Character):
+    def __init__(self, name, health, power, gold, armor, evade):
+        self.armor = armor
+        self.evade = evade
+        super(Hero, self).__init__()
+
     def print_status(self):
         print("You have {} health and {} power.".format(self.health, self.power))
     

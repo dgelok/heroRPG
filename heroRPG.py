@@ -12,7 +12,7 @@ import random
 from characters import *
 # from items import *
 
-sigmund = Hero("Sigmund", 30, 5, 0)
+sigmund = Hero("Sigmund", 30, 5, 10, 0, 0)
 
 
 goblin = Goblin("Blorg", 6, 2, 5)
@@ -64,8 +64,7 @@ def camp():
     """)
     choice = input(">> ")
     if choice == "1":
-        # shop
-        pass
+        shop()
     elif choice == "2":
         baddie = input("""
     Who would you like to fight?
@@ -84,6 +83,19 @@ def camp():
     else:
         print("sorry, that wasn't a choice.")
         camp()
+
+def shop():
+    print("""\n\n\n
+    Welcome to the shop.
+    What would you like to purchase?
+    
+    1. SuperTonic - 10gp
+    2. Armor - 20gp
+    3. Evade - 25gp
+    \n""")
+    input = (">> ")
+
+
 
 
 camp()
