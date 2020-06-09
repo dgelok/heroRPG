@@ -115,3 +115,24 @@ class Ghoul(Baddie):
         else:
             return False
 
+class Slime(Baddie):
+    def attack(self, other):
+        if other.dodge():
+            print(f"{other.name} has dodged! No damage.")
+        else:
+            chance = random.randint(0, 20)
+            if chance <= 6:
+                print(f"{self.name} slips and misses you! No damage.")
+            elif chance <= 18:
+                hit = self.power - other.armor
+                if hit <= 0:
+                    hit = 1
+                other.health -= hit
+                print(f"{self.name} does {hit} damage to {other.name}")
+            else:
+                hit = self.power * 2 - other.armor
+                print("CRITICAL HIT!")
+                print(f"{self.name} does {hit} damage to {other.name}!!!")
+
+            if not other.alive():
+                print(f"{other.name} has died!")

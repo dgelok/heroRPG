@@ -15,10 +15,11 @@ sigmund = Hero("Sigmund", 30, 5, 10, 0, 5)
 
 
 goblin = Baddie("Blorg the Goblin", 20, 2, 5, 0, 0)
-zombie = Zombie("Zombage", 300, 1, 100, 0, 0)
-medic = Medic("Dr. Evil", 30, 1, 20, 3, 0)
-shadow = Baddie("Shadow", 1, 1, 30, 0, 18)
-ghoul = Ghoul("The Ghoul", 40, 4, 30, 1, 2, True)
+zombie = Zombie("Peter the Zombie", 300, 1, 100, 0, 0)
+medic = Medic("Dr. Evil", 40, 1, 20, 3, 0)
+shadow = Baddie("Frank the Shadow", 1, 1, 30, 0, 18)
+ghoul = Ghoul("Steve the Ghoul", 50, 4, 30, 1, 2, True)
+slime = Slime("Bill the Slime", 30, 2, 5, 0, 4)
 
 baddies = {
     "1": goblin,
@@ -26,6 +27,7 @@ baddies = {
     "3": medic,
     "4": shadow,
     "5": ghoul,
+    "6": slime,
 }
 
 def main(enemy):
@@ -76,7 +78,8 @@ def camp():
     2. zombie
     3. medic
     4. shadow
-    5. ghoul\n
+    5. ghoul
+    6. slime\n
     """)
         try:
             main(baddies[baddie])
