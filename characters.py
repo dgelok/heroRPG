@@ -20,8 +20,8 @@ class Character:
             print(f"{other.name} has dodged! No damage.")
         else:
             hit = self.power - other.armor
-            if hit < 0:
-                hit = 0
+            if hit <= 0:
+                hit = 1
             other.health -= hit
             print(f"{self.name} does {hit} damage to {other.name}")
             if not other.alive():
@@ -46,15 +46,16 @@ class Hero(Character):
         if other.dodge():
             print(f"{other.name} has dodged! No damage.")
         else:
-            dice = random.randint(1, 6)
-            if dice == 5:
-                other.health -= self.power * 2
+            dice = random.randint(0, 5)
+            if dice == 0:
+                hit = self.power * 2 - other.armor
                 print("CRITICAL HIT!")
-                print(f"{self.name} does {self.power * 2} damage to {other.name}")
+                print(f"{self.name} does {hit} damage to {other.name}")
+                other.health -= hit
             else:
                 hit = self.power - other.armor
-                if hit < 0:
-                    hit = 0
+                if hit <= 0:
+                    hit = 1
                 other.health -= hit
                 print(f"{self.name} does {hit} damage to {other.name}")
             if not other.alive():
@@ -71,6 +72,8 @@ class Baddie(Character):
             print(f"You dodge the attack! No damage.")
         else:
             hit = self.power - other.armor
+            if hit <= 0:
+                hit = 1
             other.health -= hit
             print(f"{self.name} does {hit} damage to you.")
             if not other.alive():
@@ -92,4 +95,23 @@ class Medic(Baddie):
         if not other.alive():
             print(f"{other.name} has died!")
 
+class Ghoul(Baddie):
+    def __init__(self, name, health, power, gold, armor, evade, canResurrect):
+        self.canResurrect = canResurrect
+        super(Ghoul, self).__init__(name, health, power, gold, armor, evade)
+    
+    def alive(self):
+        if self.health > 0:
+            return True
+        
+        if self.health < 0 and self.canResurrect:
+            print(f"{self.name} is reviving!")
+            self.canResurrect = False
+            self.health = 15
+            self.evade += 1
+            self.armor += 1
+            self.power += 2
+            return True
+        else:
+            return False
 

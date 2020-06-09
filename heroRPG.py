@@ -10,21 +10,22 @@
 
 import random 
 from characters import *
-# from items import *
 
 sigmund = Hero("Sigmund", 30, 5, 10, 0, 5)
 
 
-goblin = Baddie("Blorg the Goblin", 30, 2, 5, 7, 0)
+goblin = Baddie("Blorg the Goblin", 20, 2, 5, 0, 0)
 zombie = Zombie("Zombage", 300, 1, 100, 0, 0)
-medic = Medic("Dr. Evil", 50, 1, 20, 3, 0)
+medic = Medic("Dr. Evil", 30, 1, 20, 3, 0)
 shadow = Baddie("Shadow", 1, 1, 30, 0, 18)
+ghoul = Ghoul("The Ghoul", 40, 4, 30, 1, 2, True)
 
 baddies = {
     "1": goblin,
     "2": zombie,
     "3": medic,
     "4": shadow,
+    "5": ghoul,
 }
 
 def main(enemy):
@@ -74,12 +75,17 @@ def camp():
     1. goblin
     2. zombie
     3. medic
-    4. shadow\n
+    4. shadow
+    5. ghoul\n
     """)
-        main(baddies[baddie])
+        try:
+            main(baddies[baddie])
+        except:
+            print("Sorry, that's not an option.")
+            camp()
     elif choice == "3":
         sigmund.print_status()
-        print(f"You have {sigmund.gold} gold, {sigmund.armor} armor, and {sigmund.evade} evade.\n")
+        print(f"You have {sigmund.gold} gold, {sigmund.armor} armor, {sigmund.evade} evade, and {sigmund.power} power.\n")
         camp()
     elif choice == "4":
         print("Goodbye!")
@@ -88,14 +94,16 @@ def camp():
         camp()
 
 def shop():
-    print("""\n\n\n
+    print(f"""\n\n\n
     Welcome to the shop.
+    You currently have {sigmund.gold}gp.
     What would you like to purchase?
     
     1. SuperTonic - 10gp
-    2. Armor - 20gp
-    3. Evade - 25gp
-    4. Nothing
+    2. Armor Upgrade - 15gp
+    3. Evade - 20gp
+    4. Sword Upgrade - 20gp
+    5. Nothing
     \n""")
     myinput = input(">> ")
     if myinput == "1":
@@ -106,19 +114,24 @@ def shop():
         else:
             print("Sorry, you do not have enough gold.")            
     elif myinput == "2":
-        if sigmund.gold >= 20:
-            sigmund.gold -= 20
+        if sigmund.gold >= 15:
+            sigmund.gold -= 15
             sigmund.armor += 2
             print(f"You upgrade your armor. Your armor is now at level {sigmund.armor}.")
         else:
             print("Sorry, you do not have enough gold.") 
     elif myinput == "3":
-        if sigmund.gold >= 25:
-            sigmund.gold -= 25
+        if sigmund.gold >= 20:
+            sigmund.gold -= 20
             sigmund.evade += 2
-            print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}")
+            print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}.")
         else:
             print("Sorry, you do not have enough gold.") 
+    elif myinput == "4":
+        if sigmund.gold >= 20:
+            sigmund.gold -= 20
+            sigmund.power += 5
+            print(f"You upgrade your skills. Your power is now at level {sigmund.power}.")
     else:
         pass
         
