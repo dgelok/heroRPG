@@ -12,13 +12,13 @@ import random
 from characters import *
 # from items import *
 
-sigmund = Hero("Sigmund", 30, 5, 10, 0, 0)
+sigmund = Hero("Sigmund", 30, 5, 10, 0, 5)
 
 
-goblin = Goblin("Blorg", 6, 2, 5)
-zombie = Zombie("Zombage", 300, 1, 100)
-medic = Medic("Dr. Evil", 50, 1, 20)
-shadow = Shadow("Shadow", 1, 1, 30)
+goblin = Baddie("Blorg the Goblin", 30, 2, 5, 7, 0)
+zombie = Zombie("Zombage", 300, 1, 100, 0, 0)
+medic = Medic("Dr. Evil", 50, 1, 20, 3, 0)
+shadow = Baddie("Shadow", 1, 1, 30, 0, 18)
 
 baddies = {
     "1": goblin,
@@ -52,7 +52,10 @@ def main(enemy):
         if enemy.health > 0:
             enemy.attack(sigmund)
 
-    camp()
+    if not sigmund.alive():
+        print("You have died! Goodbye.\n\n\n")
+    else:
+        camp()
         
 def camp():
     print("You are back at the camp. What would you like to do?")
@@ -76,7 +79,7 @@ def camp():
         main(baddies[baddie])
     elif choice == "3":
         sigmund.print_status()
-        print(f"You have {sigmund.gold} gold.\n")
+        print(f"You have {sigmund.gold} gold, {sigmund.armor} armor, and {sigmund.evade} evade.\n")
         camp()
     elif choice == "4":
         print("Goodbye!")
@@ -92,8 +95,35 @@ def shop():
     1. SuperTonic - 10gp
     2. Armor - 20gp
     3. Evade - 25gp
+    4. Nothing
     \n""")
-    input = (">> ")
+    myinput = input(">> ")
+    if myinput == "1":
+        if sigmund.gold >= 10:
+            sigmund.gold -= 10
+            sigmund.health += 10
+            print(f"You drink the potion. Your health is now {sigmund.health}")
+        else:
+            print("Sorry, you do not have enough gold.")            
+    elif myinput == "2":
+        if sigmund.gold >= 20:
+            sigmund.gold -= 20
+            sigmund.armor += 2
+            print(f"You upgrade your armor. Your armor is now at level {sigmund.armor}.")
+        else:
+            print("Sorry, you do not have enough gold.") 
+    elif myinput == "3":
+        if sigmund.gold >= 25:
+            sigmund.gold -= 25
+            sigmund.evade += 2
+            print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}")
+        else:
+            print("Sorry, you do not have enough gold.") 
+    else:
+        pass
+        
+    print("Going back to the camp...\n")
+    camp()
 
 
 

@@ -1,11 +1,13 @@
 import random
 
 class Character:
-    def __init__(self, name, health, power, gold):
+    def __init__(self, name, health, power, gold, armor, evade):
         self.name = name
         self.health = health
         self.power = power
         self.gold = gold
+        self.armor = armor
+        self.evade = evade
 
     def alive(self):
         if self.health > 0:
@@ -14,22 +16,28 @@ class Character:
             return False   
 
     def attack(self, other):
-        other.health -= self.power
-        print(f"{self.name} does {self.power} damage to {other.name}")
-        if not other.alive():
-            print(f"{other.name} has died!")
+        if other.dodge():
+            print(f"{other.name} has dodged! No damage.")
+        else:
+            hit = self.power - other.armor
+            if hit < 0:
+                hit = 0
+            other.health -= hit
+            print(f"{self.name} does {hit} damage to {other.name}")
+            if not other.alive():
+                print(f"{other.name} has died!")
 
     def dodge(self):
-        return False
+        dice = random.randint(0, 20)
+        if self.evade > dice:
+            return True
+        else:
+            return False
 
     def print_status(self):
         print("This character has {} health and {} power.".format(self.health, self.power))
 
 class Hero(Character):
-    def __init__(self, name, health, power, gold, armor, evade):
-        self.armor = armor
-        self.evade = evade
-        super(Hero, self).__init__()
 
     def print_status(self):
         print("You have {} health and {} power.".format(self.health, self.power))
@@ -44,8 +52,11 @@ class Hero(Character):
                 print("CRITICAL HIT!")
                 print(f"{self.name} does {self.power * 2} damage to {other.name}")
             else:
-                other.health -= self.power
-                print(f"{self.name} does {self.power} damage to {other.name}")
+                hit = self.power - other.armor
+                if hit < 0:
+                    hit = 0
+                other.health -= hit
+                print(f"{self.name} does {hit} damage to {other.name}")
             if not other.alive():
                 print(f"{other.name} has died!")
                 print(f"You gain {other.gold} gold.")
@@ -55,8 +66,15 @@ class Baddie(Character):
     def print_status(self):
         print("{} has {} health and {} power.".format(self.name, self.health, self.power))
 
-class Goblin(Baddie):
-    pass
+    def attack(self, other):
+        if other.dodge():
+            print(f"You dodge the attack! No damage.")
+        else:
+            hit = self.power - other.armor
+            other.health -= hit
+            print(f"{self.name} does {hit} damage to you.")
+            if not other.alive():
+                print(f"{other.name} has died!")
 
 class Zombie(Baddie):
     def alive(self):
@@ -74,10 +92,4 @@ class Medic(Baddie):
         if not other.alive():
             print(f"{other.name} has died!")
 
-class Shadow(Baddie):
-    def dodge(self):
-        chance = random.randint(0,10)
-        if chance == 0:
-            return False
-        else:
-            return True
+
