@@ -24,7 +24,7 @@ def main(enemy):
         if raw_input == "1":
             sigmund.attack(enemy)
         elif raw_input == "2":
-            useItem(RESTRICTION_ON)
+            useItem(RESTRICTION_ON, enemy)
         elif raw_input == "3":
             print(f"Running away from {enemy.name}...")
             break
@@ -135,7 +135,7 @@ def shop():
     print("Going back to the camp...\n")
     camp()
 
-def useItem(s):
+def useItem(s, enemy=None):
     if sigmund.supplies == {}:
         print("\nYou have no supplies!")
         return
@@ -153,7 +153,11 @@ def useItem(s):
         print("You can't use that now!")
         return
     
-    myitem.use(sigmund)
+    if isinstance(myitem, Tonic):
+        recip = sigmund
+    else:
+        recip = enemy
+    myitem.use(recip)
     del sigmund.supplies[itemchoice]
 
 
