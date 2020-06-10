@@ -64,20 +64,20 @@ class Hero(Character):
                 print(f"You gain {other.gold} gold.")
                 self.gold += other.gold 
     
-    def useItem(self, ####):
-        print("You have the following supplies: \n")
-        for item in self.supplies:
-            print("\t" + item)
+    # def useItem(self):
+    #     print("You have the following supplies: \n")
+    #     for item in self.supplies:
+    #         print("\t" + item)
 
-        itemchoice = input("What would you like to use? >> ")
-        if itemchoice not in self.supplies:
-            print("I'm sorry, you don't have that.")
-        else: 
-            if itemchoice == "SuperTonic":
-                print("You use the SuperTonic and feel much better!")
-                self.health += 10
-                print(f"Health at {self.health}")
-                self.supplies.remove("SuperTonic")
+    #     itemchoice = input("What would you like to use? >> ")
+    #     if itemchoice not in self.supplies:
+    #         print("I'm sorry, you don't have that.")
+    #     else: 
+    #         if itemchoice == "SuperTonic":
+    #             print("You use the SuperTonic and feel much better!")
+    #             self.health += 10
+    #             print(f"Health at {self.health}")
+    #             self.supplies.remove("SuperTonic")
 
 class Baddie(Character):
 
@@ -150,3 +150,6 @@ class Slime(Baddie):
 
             if not other.alive():
                 print(f"{other.name} has died!")
+
+
+

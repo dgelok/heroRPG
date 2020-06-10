@@ -1,9 +1,35 @@
+
+RESTRICTION_ON = True
+
+
 import random 
 from characters import *
+# from items import *
+class Item():
+    def __init__(self, restrictToFight):
+        self.restrictToFight = restrictToFight
 
+class Tonic(Item):
 
-sigmund = Hero("Sigmund", 30, 5, 10, 0, 5, [])
+    def use(self, r):
+        if self.restrictToFight:
+            if r:
+                print("Can't use this now!")
+            else:
+                sigmund.health += 10
+                print("Health goes up by 10!")
+        else:
+            sigmund.health += 10
+            print("Health goes up by 10!")
 
+#hero
+sigmund = Hero("Sigmund", 30, 5, 10, 0, 5, {})
+
+#items
+SuperTonic = Tonic(True)
+# SuperPoison = Poison(True)
+
+#baddies
 goblin = Baddie("Blorg the Goblin", 20, 2, 5, 0, 0)
 zombie = Zombie("Peter the Zombie", 300, 1, 100, 0, 0)
 medic = Medic("Dr. Evil", 40, 1, 20, 3, 0)
@@ -21,6 +47,7 @@ baddies = {
 }
 
 def main(enemy):
+    RESTRICTION_ON = False
     print("\n"*20)
     while enemy.alive() and sigmund.alive():
         
@@ -36,7 +63,7 @@ def main(enemy):
         if raw_input == "1":
             sigmund.attack(enemy)
         elif raw_input == "2":
-            useItem()
+            useItem(RESTRICTION_ON)
         elif raw_input == "3":
             print(f"Running away from {enemy.name}...")
             break
@@ -46,6 +73,8 @@ def main(enemy):
         if enemy.health > 0:
             enemy.attack(sigmund)
         print("\n")
+    
+    RESTRICTION_ON = True 
 
     if not sigmund.alive():
         print("You have died! Goodbye.\n\n\n")
@@ -53,7 +82,7 @@ def main(enemy):
         camp()
 
 def camp():
-    print("\n"*20)
+    print("\n"*2)
     print("You are safe at the camp. What would you like to do?")
     print("""
     1. go to the shop
@@ -84,7 +113,7 @@ def camp():
         print(f"You have {sigmund.gold} gold, {sigmund.armor} armor, {sigmund.evade} evade, and {sigmund.power} power.\n")
         camp()
     elif choice == "4":
-        useItem()
+        useItem(RESTRICTION_ON)
         camp()
     elif choice == "5":
         print("Goodbye!")
@@ -108,36 +137,36 @@ def shop():
     if myinput == "1":
         if sigmund.gold >= 10:
             sigmund.gold -= 10
-            sigmund.supplies.append("SuperTonic")
+            sigmund.supplies["SuperTonic"] = SuperTonic
             print("One SuperTonic added to supplies!")
         else:
             print("Sorry, you do not have enough gold.")            
-    elif myinput == "2":
-        if sigmund.gold >= 15:
-            sigmund.gold -= 15
-            sigmund.armor += 2
-            print(f"You upgrade your armor. Your armor is now at level {sigmund.armor}.")
-        else:
-            print("Sorry, you do not have enough gold.") 
-    elif myinput == "3":
-        if sigmund.gold >= 20:
-            sigmund.gold -= 20
-            sigmund.evade += 2
-            print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}.")
-        else:
-            print("Sorry, you do not have enough gold.") 
-    elif myinput == "4":
-        if sigmund.gold >= 20:
-            sigmund.gold -= 20
-            sigmund.power += 5
-            print(f"You upgrade your skills. Your power is now at level {sigmund.power}.")
-    else:
+    # elif myinput == "2":
+    #     if sigmund.gold >= 15:
+    #         sigmund.gold -= 15
+    #         sigmund.armor += 2
+    #         print(f"You upgrade your armor. Your armor is now at level {sigmund.armor}.")
+    #     else:
+    #         print("Sorry, you do not have enough gold.") 
+    # elif myinput == "3":
+    #     if sigmund.gold >= 20:
+    #         sigmund.gold -= 20
+    #         sigmund.evade += 2
+    #         print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}.")
+    #     else:
+    #         print("Sorry, you do not have enough gold.") 
+    # elif myinput == "4":
+    #     if sigmund.gold >= 20:
+    #         sigmund.gold -= 20
+    #         sigmund.power += 5
+    #         print(f"You upgrade your skills. Your power is now at level {sigmund.power}.")
+    # else:
         pass
         
     print("Going back to the camp...\n")
     camp()
 
-def useItem():
+def useItem(s):
     print("You have the following supplies: \n")
     for item in sigmund.supplies:
         print("\t" + item)
@@ -146,20 +175,9 @@ def useItem():
     if itemchoice not in sigmund.supplies:
         print("I'm sorry, you don't have that.")
     else: 
-        if itemchoice == "SuperTonic":
-            print("You use the SuperTonic and feel much better!")
-            sigmund.health += 10
-            print(f"Health at {sigmund.health}")
-            sigmund.supplies.remove("SuperTonic")
-        # elif itemchoice == "MagicBomb":
-        #     print("You signal the MagicBomb!")
-        #     sigmund.supplies.remove("MagicBomb")
+        myitem = sigmund.supplies[itemchoice]
+        myitem.use(s)
 
-        #     pass
-        # elif itemchoice == "SuperBlock":
-        #     print("You max up your armor for the next turn!")
-        #     sigmund.supplies.remove("SuperBlock")
-        #     pass
 
 
 camp()
