@@ -1,5 +1,6 @@
 import random
 
+#characters
 class Character:
     def __init__(self, name, health, power, gold, armor, evade):
         self.name = name
@@ -152,4 +153,26 @@ class Slime(Baddie):
                 print(f"{other.name} has died!")
 
 
+#items 
+class Item():
+    def __init__(self, restrictToFight):
+        self.restrictToFight = restrictToFight
+    
+    def canUse(self, status):
+        if self.restrictToFight:
+            if status: 
+                return False
+            else:
+                return True
+        return True
+
+class Tonic(Item):
+    def use(self, recipient):
+        recipient.health += 10
+        print("Health goes up by 10!")
+
+class Poison(Item):
+    def use(self, recipient):
+        recipient.health -= 10
+        print(f"{recipient.name} has been poisoned! Health at {recipient.health}")
 

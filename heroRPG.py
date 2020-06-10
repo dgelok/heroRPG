@@ -4,47 +4,8 @@ RESTRICTION_ON = True
 
 import random 
 from characters import *
-# from items import *
-class Item():
-    def __init__(self, restrictToFight):
-        self.restrictToFight = restrictToFight
+from variables import *
 
-class Tonic(Item):
-
-    def use(self, r):
-        if self.restrictToFight:
-            if r:
-                print("Can't use this now!")
-            else:
-                sigmund.health += 10
-                print("Health goes up by 10!")
-        else:
-            sigmund.health += 10
-            print("Health goes up by 10!")
-
-#hero
-sigmund = Hero("Sigmund", 30, 5, 10, 0, 5, {})
-
-#items
-SuperTonic = Tonic(True)
-# SuperPoison = Poison(True)
-
-#baddies
-goblin = Baddie("Blorg the Goblin", 20, 2, 5, 0, 0)
-zombie = Zombie("Peter the Zombie", 300, 1, 100, 0, 0)
-medic = Medic("Dr. Evil", 40, 1, 20, 3, 0)
-shadow = Baddie("Frank the Shadow", 1, 1, 30, 0, 18)
-ghoul = Ghoul("Steve the Ghoul", 50, 4, 30, 1, 2, True)
-slime = Slime("Bill the Slime", 30, 2, 5, 0, 4)
-
-baddies = {
-    "1": goblin,
-    "2": zombie,
-    "3": medic,
-    "4": shadow,
-    "5": ghoul,
-    "6": slime,
-}
 
 def main(enemy):
     RESTRICTION_ON = False
@@ -128,10 +89,11 @@ def shop():
     What would you like to purchase?
     
     1. SuperTonic - 10gp
-    2. Armor Upgrade - 15gp
-    3. Evade - 20gp
-    4. Sword Upgrade - 20gp
-    5. Nothing
+    2. SuperPoison - 10gp
+    3. Armor Upgrade - 15gp
+    4. Sword Upgrade - 15gp
+    5. Evade Upgrade - 20gp
+    6. Nothing
     \n""")
     myinput = input(">> ")
     if myinput == "1":
@@ -141,42 +103,58 @@ def shop():
             print("One SuperTonic added to supplies!")
         else:
             print("Sorry, you do not have enough gold.")            
-    # elif myinput == "2":
-    #     if sigmund.gold >= 15:
-    #         sigmund.gold -= 15
-    #         sigmund.armor += 2
-    #         print(f"You upgrade your armor. Your armor is now at level {sigmund.armor}.")
-    #     else:
-    #         print("Sorry, you do not have enough gold.") 
-    # elif myinput == "3":
-    #     if sigmund.gold >= 20:
-    #         sigmund.gold -= 20
-    #         sigmund.evade += 2
-    #         print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}.")
-    #     else:
-    #         print("Sorry, you do not have enough gold.") 
-    # elif myinput == "4":
-    #     if sigmund.gold >= 20:
-    #         sigmund.gold -= 20
-    #         sigmund.power += 5
-    #         print(f"You upgrade your skills. Your power is now at level {sigmund.power}.")
-    # else:
+    elif myinput == "2":
+        if sigmund.gold >= 10:
+            sigmund.gold -= 10
+            sigmund.supplies["SuperPoison"] = SuperPoison
+            print("One SuperPoison added to supplies!")
+    elif myinput == "3":
+        if sigmund.gold >= 15:
+            sigmund.gold -= 15
+            sigmund.armor += 2
+            print(f"You upgrade your armor. Your armor is now at level {sigmund.armor}.")
+        else:
+            print("Sorry, you do not have enough gold.") 
+    elif myinput == "4":
+        if sigmund.gold >= 15:
+            sigmund.gold -= 15
+            sigmund.power += 3
+            print(f"You upgrade your skills. Your power is now at level {sigmund.power}.")
+        else:
+            print("Sorry, you do not have enough gold.")
+    elif myinput == "5":
+        if sigmund.gold >= 20:
+            sigmund.gold -= 20
+            sigmund.evade += 2
+            print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}.")
+        else:
+            print("Sorry, you do not have enough gold.") 
+    else:
         pass
         
     print("Going back to the camp...\n")
     camp()
 
 def useItem(s):
+    if sigmund.supplies == {}:
+        print("\nYou have no supplies!")
+        return
+
     print("You have the following supplies: \n")
     for item in sigmund.supplies:
         print("\t" + item)
-
     itemchoice = input("What would you like to use? >> ")
     if itemchoice not in sigmund.supplies:
         print("I'm sorry, you don't have that.")
-    else: 
-        myitem = sigmund.supplies[itemchoice]
-        myitem.use(s)
+        return
+
+    myitem = sigmund.supplies[itemchoice]
+    if not myitem.canUse(s):
+        print("You can't use that now!")
+        return
+    
+    myitem.use(sigmund)
+    del sigmund.supplies[itemchoice]
 
 
 
