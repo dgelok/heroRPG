@@ -1,18 +1,8 @@
-
-
-#!/usr/bin/env python
-
-# In this simple RPG game, the hero fights the goblin. He has the options to:
-
-# 1. fight goblin
-# 2. do nothing - in which case the goblin will attack him anyway
-# 3. flee
-
 import random 
 from characters import *
 
-sigmund = Hero("Sigmund", 30, 5, 10, 0, 5, [])
 
+sigmund = Hero("Sigmund", 30, 5, 10, 0, 5, [])
 
 goblin = Baddie("Blorg the Goblin", 20, 2, 5, 0, 0)
 zombie = Zombie("Peter the Zombie", 300, 1, 100, 0, 0)
@@ -61,7 +51,7 @@ def main(enemy):
         print("You have died! Goodbye.\n\n\n")
     else:
         camp()
-        
+
 def camp():
     print("\n"*20)
     print("You are safe at the camp. What would you like to do?")
@@ -161,16 +151,15 @@ def useItem():
             sigmund.health += 10
             print(f"Health at {sigmund.health}")
             sigmund.supplies.remove("SuperTonic")
-        elif itemchoice == "MagicBomb":
-            print("You signal the MagicBomb!")
-            sigmund.supplies.remove("MagicBomb")
-            
-            pass
-        elif itemchoice == "SuperBlock":
-            print("You max up your armor for the next turn!")
-            sigmund.supplies.remove("SuperBlock")
-            pass
+        # elif itemchoice == "MagicBomb":
+        #     print("You signal the MagicBomb!")
+        #     sigmund.supplies.remove("MagicBomb")
 
+        #     pass
+        # elif itemchoice == "SuperBlock":
+        #     print("You max up your armor for the next turn!")
+        #     sigmund.supplies.remove("SuperBlock")
+        #     pass
 
 
 camp()
