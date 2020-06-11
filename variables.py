@@ -8,10 +8,11 @@ SuperTonic = Tonic(False)
 SuperPoison = Poison(True)
 mmegapoison = MegaPoison(True)
 mmegatonic = MegaTonic(False)
+zzombiepoison = ZombiePoison(True)
 
 #baddies
 goblin = Baddie("Blorg the Goblin", 20, 2, 5, 0, 0)
-zombie = Zombie("Peter the Zombie", 300, 1, 100, 0, 0)
+zombie = Zombie("Peter the Zombie", 10, 1, 100, 0, 0, False)
 medic = Medic("Dr. Evil", 40, 1, 20, 3, 0)
 shadow = Baddie("Frank the Shadow", 1, 1, 30, 0, 18)
 ghoul = Ghoul("Steve the Ghoul", 50, 4, 30, 1, 2, True)

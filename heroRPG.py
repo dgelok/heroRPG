@@ -101,7 +101,8 @@ def shop():
     5. Armor Upgrade - 15gp
     6. Sword Upgrade - 15gp
     7. Evade Upgrade - 20gp
-    8. Nothing
+    8. ZombiePoison - 100gp
+    9. Nothing
 
     \n""")
     myinput = input(">> ")
@@ -150,6 +151,13 @@ def shop():
             sigmund.gold -= 20
             sigmund.evade += 2
             print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}.")
+        else:
+            print("Sorry, you do not have enough gold.") 
+    elif myinput == "8":
+        if sigmund.gold >= 100:
+            sigmund.gold -= 100
+            sigmund.supplies["ZombiePoison"] = zzombiepoison
+            print("You just bought a ZombiePoison. It's about to get real.")
         else:
             print("Sorry, you do not have enough gold.") 
     else:

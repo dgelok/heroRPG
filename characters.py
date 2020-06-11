@@ -64,6 +64,7 @@ class Hero(Character):
                 print(f"You gain {other.gold} gold.")
                 self.gold += other.gold 
 
+#baddies
 class Baddie(Character):
     def attack(self, other):
         if other.dodge():
@@ -78,8 +79,15 @@ class Baddie(Character):
                 print(f"{other.name} has died!")
 
 class Zombie(Baddie):
+    def __init__(self, name, health, power, gold, armor, evade, poisoned):
+        super(Zombie, self).__init__(name, health, power, gold, armor, evade)
+        self.poisoned = poisoned
+
     def alive(self):
-        return True
+        if self.poisoned == True:
+            return False
+        else:
+            return True
 
 class Medic(Baddie):
     def attack(self, other):
@@ -168,3 +176,11 @@ class MegaPoison(Item):
     def use(self, recipient):
         recipient.health -= 20
         print(f"{recipient.name} has been MEGA poisoned! Health at {recipient.health}!")
+
+class ZombiePoison(Item):
+    def use(self, recipient):
+        try:
+            recipient.poisoned == True
+            print(f"{recipient.name} has been ZOMBIE MEGA ULTRA GIGA POISONED! He gonna die now!")
+        except:
+            print("ZombiePoison only works on Zombies!")
