@@ -44,7 +44,7 @@ def main(enemy):
         camp()
 
 def camp():
-    print("\n"*2)
+    print("\n")
     print("You are safe at the camp. What would you like to do?")
     print("""
     1. go to the shop
@@ -73,6 +73,11 @@ def camp():
     elif choice == "3":
         sigmund.print_status()
         print(f"You have {sigmund.gold} gold, {sigmund.armor} armor, {sigmund.evade} evade, and {sigmund.power} power.\n")
+        print("----SUPPLIES----")
+        for item in sigmund.supplies:
+            print("\t" + item)
+        if sigmund.supplies == {}:
+            print("\n** There's nothing here! **")
         camp()
     elif choice == "4":
         useItem(RESTRICTION_ON)
@@ -91,12 +96,13 @@ def shop():
     
     1. SuperTonic - 10gp
     2. SuperPoison - 10gp
-    3. Armor Upgrade - 15gp
-    4. Sword Upgrade - 15gp
-    5. Evade Upgrade - 20gp
-    6. Nothing
-    7. MegaPoison - 20gp
-    8. MegaTonic - 20gp
+    3. MegaPoison - 20gp
+    4. MegaTonic - 20gp
+    5. Armor Upgrade - 15gp
+    6. Sword Upgrade - 15gp
+    7. Evade Upgrade - 20gp
+    8. Nothing
+
     \n""")
     myinput = input(">> ")
     if myinput == "1":
@@ -112,38 +118,38 @@ def shop():
             sigmund.supplies["SuperPoison"] = SuperPoison
             print("One SuperPoison added to supplies!")
     elif myinput == "3":
-        if sigmund.gold >= 15:
-            sigmund.gold -= 15
-            sigmund.armor += 2
-            print(f"You upgrade your armor. Your armor is now at level {sigmund.armor}.")
-        else:
-            print("Sorry, you do not have enough gold.") 
-    elif myinput == "4":
-        if sigmund.gold >= 15:
-            sigmund.gold -= 15
-            sigmund.power += 3
-            print(f"You upgrade your skills. Your power is now at level {sigmund.power}.")
-        else:
-            print("Sorry, you do not have enough gold.")
-    elif myinput == "5":
-        if sigmund.gold >= 20:
-            sigmund.gold -= 20
-            sigmund.evade += 2
-            print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}.")
-        else:
-            print("Sorry, you do not have enough gold.") 
-    elif myinput == "7":
         if sigmund.gold >= 20:
             sigmund.gold -= 20
             sigmund.supplies["MegaPoison"] = mmegapoison
             print("One MegaPoison added to supplies!")
         else:
             print("Sorry, you do not have enough gold.") 
-    elif myinput == "8":
+    elif myinput == "4":
         if sigmund.gold >= 20:
             sigmund.gold -= 20
             sigmund.supplies["MegaTonic"] = mmegatonic
             print("One MegaTonic added to supplies!")
+        else:
+            print("Sorry, you do not have enough gold.") 
+    elif myinput == "5":
+        if sigmund.gold >= 15:
+            sigmund.gold -= 15
+            sigmund.armor += 2
+            print(f"You upgrade your armor. Your armor is now at level {sigmund.armor}.")
+        else:
+            print("Sorry, you do not have enough gold.") 
+    elif myinput == "6":
+        if sigmund.gold >= 15:
+            sigmund.gold -= 15
+            sigmund.power += 3
+            print(f"You upgrade your skills. Your power is now at level {sigmund.power}.")
+        else:
+            print("Sorry, you do not have enough gold.")
+    elif myinput == "7":
+        if sigmund.gold >= 20:
+            sigmund.gold -= 20
+            sigmund.evade += 2
+            print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}.")
         else:
             print("Sorry, you do not have enough gold.") 
     else:
