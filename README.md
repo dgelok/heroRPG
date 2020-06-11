@@ -2,10 +2,21 @@
 
 Hero RPG (heroRPG.py) is a python-based RPG to be run on the command line. It was created as part of DigitalCrafts training (June 2020 Cohort), and designed for the development of OOP skills.
 
+### Developed by
+
+Dan Gelok, for DigitalCrafts Houston June 2020 Cohort 
+
+[email me](dgelok@gmail.com) / [github](https://github.com/dgelok)
+
 ### Requirements
 
 - Python3 or later (built on Python3.8)
-- all helper modules (characters, variables, etc)
+- all helper modules (characters, variables, etc) plus random module
+
+### To run
+
+- On Mac Terminal: `python3 heroRPG.py`
+- On Windows Command Line: `python heroRPG.py`
 
 ### Similar projects
 
