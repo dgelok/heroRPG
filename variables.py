@@ -1,11 +1,13 @@
 from characters import *
 
 #hero
-sigmund = Hero("Sigmund", 30, 5, 20, 0, 5, {})
+sigmund = Hero("Sigmund", 30, 5, 200, 0, 5, {})
 
 #items
 SuperTonic = Tonic(False)
 SuperPoison = Poison(True)
+mmegapoison = MegaPoison(True)
+mmegatonic = MegaTonic(False)
 
 #baddies
 goblin = Baddie("Blorg the Goblin", 20, 2, 5, 0, 0)
@@ -23,3 +25,4 @@ baddies = {
     "5": ghoul,
     "6": slime,
 }
+

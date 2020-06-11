@@ -154,8 +154,17 @@ class Tonic(Item):
         recipient.health += 10
         print("Health goes up by 10!")
 
+class MegaTonic(Tonic):
+    def use(self, recipient):
+        recipient.health += 20
+        print("Health goes up by 20!")
+
 class Poison(Item):
     def use(self, recipient):
         recipient.health -= 10
         print(f"{recipient.name} has been poisoned! Health at {recipient.health}")
 
+class MegaPoison(Item):
+    def use(self, recipient):
+        recipient.health -= 20
+        print(f"{recipient.name} has been MEGA poisoned! Health at {recipient.health}!")

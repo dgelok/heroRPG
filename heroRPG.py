@@ -7,6 +7,7 @@ from characters import *
 from variables import *
 
 
+
 def main(enemy):
     RESTRICTION_ON = False
     print("\n"*20)
@@ -94,6 +95,8 @@ def shop():
     4. Sword Upgrade - 15gp
     5. Evade Upgrade - 20gp
     6. Nothing
+    7. MegaPoison - 20gp
+    8. MegaTonic - 20gp
     \n""")
     myinput = input(">> ")
     if myinput == "1":
@@ -127,6 +130,20 @@ def shop():
             sigmund.gold -= 20
             sigmund.evade += 2
             print(f"You upgrade your skills. Your evade is now at level {sigmund.evade}.")
+        else:
+            print("Sorry, you do not have enough gold.") 
+    elif myinput == "7":
+        if sigmund.gold >= 20:
+            sigmund.gold -= 20
+            sigmund.supplies["MegaPoison"] = mmegapoison
+            print("One MegaPoison added to supplies!")
+        else:
+            print("Sorry, you do not have enough gold.") 
+    elif myinput == "8":
+        if sigmund.gold >= 20:
+            sigmund.gold -= 20
+            sigmund.supplies["MegaTonic"] = mmegatonic
+            print("One MegaTonic added to supplies!")
         else:
             print("Sorry, you do not have enough gold.") 
     else:
