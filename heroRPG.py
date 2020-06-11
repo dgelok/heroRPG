@@ -94,7 +94,7 @@ def shop():
     You currently have {sigmund.gold}gp.
     What would you like to purchase?
     
-    1. SuperTonic - 10gp
+    1. Tonic - 10gp
     2. SuperPoison - 10gp
     3. MegaPoison - 20gp
     4. MegaTonic - 20gp
@@ -108,8 +108,8 @@ def shop():
     if myinput == "1":
         if sigmund.gold >= 10:
             sigmund.gold -= 10
-            sigmund.supplies["SuperTonic"] = SuperTonic
-            print("One SuperTonic added to supplies!")
+            sigmund.supplies["Tonic"] = SuperTonic
+            print("One Tonic added to supplies!")
         else:
             print("Sorry, you do not have enough gold.")            
     elif myinput == "2":
