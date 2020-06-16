@@ -1,7 +1,7 @@
 from characters import *
 
 #hero
-sigmund = Hero("Sigmund", 30, 5, 200, 0, 5, {})
+sigmund = Hero("Sigmund", 30, 5, 20, 0, 5, {})
 
 #items
 SuperTonic = Tonic(False)

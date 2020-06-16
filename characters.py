@@ -1,3 +1,4 @@
+
 import random
 
 #characters
@@ -10,7 +11,7 @@ class Character:
         self.armor = armor
         self.evade = evade
 
-    def alive(self):
+    def alive(self): 
         if self.health > 0:
             return True
         else:
@@ -64,7 +65,7 @@ class Hero(Character):
                 print(f"You gain {other.gold} gold.")
                 self.gold += other.gold 
 
-#baddies
+#
 class Baddie(Character):
     def attack(self, other):
         if other.dodge():
